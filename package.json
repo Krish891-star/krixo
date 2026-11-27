@@ -1,0 +1,57 @@
+{
+  "name": "krixo-tools",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Privacy-first PDF and image utility platform with a Node.js admin backend.",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "concurrently -k \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:server": "node --dns-result-order=ipv4first --watch server.js",
+    "dev:client": "vite --host 0.0.0.0",
+    "build": "vite build && node scripts/copy-static.js && node scripts/generate-seo.mjs",
+    "start": "node --dns-result-order=ipv4first server.js",
+    "seed:admin": "node --dns-result-order=ipv4first scripts/seed-admin.js",
+    "set:mongo": "node scripts/set-mongo-uri.mjs",
+    "check": "node --check server.js && node --check server/models.js && node --check scripts/seed-admin.js && node --check scripts/set-mongo-uri.mjs && node --check scripts/copy-static.js && node --check scripts/generate-seo.mjs && node --check scripts/generate-new-tool-pages.mjs && node --check public/assets/tool-manifest.js && node --check public/assets/pro-workspace.js && node --check netlify/functions/api.mjs && node --check public/assets/main.js && node --check public/assets/pro-core.js && node --check public/assets/pro-catalog.js && node --check public/assets/pro-tools.js && node --check public/assets/pro-extra.js && node --check public/assets/pro-convert.js && node --check public/assets/pro-manage.js && node --check vite.config.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "blob-stream": "^0.1.3",
+    "buffer": "^6.0.3",
+    "cookie-parser": "^1.4.7",
+    "docx": "^9.16.0",
+    "dotenv": "^16.4.7",
+    "events": "^3.3.0",
+    "express": "^4.21.2",
+    "express-async-errors": "^3.1.1",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "html2canvas": "^1.4.1",
+    "jsonwebtoken": "^9.0.2",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.9",
+    "jszip": "^3.10.1",
+    "mammoth": "^1.13.0",
+    "mongoose": "^8.9.5",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^4.10.38",
+    "pdfkit": "^0.17.2",
+    "pptxgenjs": "^4.0.0",
+    "process": "^0.11.10",
+    "stream-browserify": "^3.0.0",
+    "tesseract.js": "^6.0.1",
+    "util": "^0.12.5",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  },
+  "overrides": {
+    "image-size": "^2.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "rollup": "npm:@rollup/wasm-node@^4.68.5",
+    "vite": "^6.0.7"
+  }
+}
